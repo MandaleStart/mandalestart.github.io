@@ -188,3 +188,55 @@ a.custom-card:hover {
 .checked {
   color: orange;
 }
+
+.form-group {
+  padding: 5% 5%;
+  margin: 50px;
+  position: fixed;
+  border-style: solid;
+  border-color: magenta;
+  border-radius: 10%;
+  background:rgb(238, 234, 234);
+  font-size: 120%;
+
+}
+.form-control{
+  margin: 20px;
+  font-weight: bolder;
+  font-size: larger;
+}
+#btnlogin{
+  margin: 20% 0% 20% 50%;
+
+
+}
+#imgperfil{
+  width: 20% ;
+  margin:0% 10%;
+
+}
+.nav-item{
+  margin-left: 10%;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+.mt-5{
+  padding-left: 10%;
+  padding-top: 10%;
+}
+.username{
+  color: aliceblue;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin:0% 10%;
+}
+#sessiondiv{
+  display: flex;
+
+}
+#closesession{
+  float: right;
+  margin:0% 10%;
+}
