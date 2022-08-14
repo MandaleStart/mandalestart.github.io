@@ -240,3 +240,8 @@ a.custom-card:hover {
   float: right;
   margin:0% 10%;
 }
+#errortextlog{
+  color: red;
+  font-weight: bolder;
+  text-align: center;
+}
