@@ -205,11 +205,6 @@ a.custom-card:hover {
   font-weight: bolder;
   font-size: larger;
 }
-#btnlogin{
-  margin: 20% 0% 20% 50%;
-
-
-}
 #imgperfil{
   width: 20% ;
   margin:0% 10%;
@@ -244,4 +239,17 @@ a.custom-card:hover {
   color: red;
   font-weight: bolder;
   text-align: center;
+}
+.logbutton{
+  display:flex;
+}
+.g_id_signin{
+  margin-left: 5%;
+}
+#btnlogin{
+  margin: 0% 5% 15% 15%;
+}
+.loginbg{
+  display:block;
+  background-color: rgba(0, 0, 0, 0.308);
 }
