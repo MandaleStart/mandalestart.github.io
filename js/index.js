@@ -29,13 +29,12 @@ function closeS() {
     location.href = 'login.html';
 }
 
-let userloged = document.getElementsByClassName('username').value;
-
-function chkS() {
-    if (userloged = null){closeS()}
-        else{}}
-
 document.addEventListener("DOMContentLoaded", function () {
+    function chkS() {
+        if ((localStorage.getItem('user')) = null)
+                {closeS()}
+            else{}};
+
     document.getElementById("autos").addEventListener("click", function () {
         localStorage.setItem("catID", 101);
         window.location = "products.html"
