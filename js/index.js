@@ -29,8 +29,10 @@ function closeS() {
     location.href = 'login.html';
 }
 
+let userloged = document.getElementsByClassName('username').value;
+
 function chkS() {
-    if (user = null){closeS()}
+    if (userloged = null){closeS()}
         else{}}
 
 document.addEventListener("DOMContentLoaded", function () {
