@@ -217,8 +217,7 @@ a.custom-card:hover {
   justify-content: center;
 }
 .mt-5{
-  padding-left: 10%;
-  padding-top: 10%;
+  padding: 10% 10% 10% 10%;
 }
 .username{
   color: aliceblue;
@@ -248,8 +247,4 @@ a.custom-card:hover {
 }
 #btnlogin{
   margin: 0% 5% 15% 15%;
-}
-.loginbg{
-  display:block;
-  background-color: rgba(0, 0, 0, 0.308);
 }

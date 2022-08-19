@@ -29,6 +29,10 @@ function closeS() {
     location.href = 'login.html';
 }
 
+function chkS() {
+    if (user = null){closeS()}
+        else{}}
+
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("autos").addEventListener("click", function () {
         localStorage.setItem("catID", 101);
