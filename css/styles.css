@@ -230,7 +230,7 @@ a.custom-card:hover {
   display: flex;
 
 }
-#closesession{
+#closesession, #logsession{
   float: right;
   margin:0% 10%;
 }
@@ -248,3 +248,4 @@ a.custom-card:hover {
 #btnlogin{
   margin: 0% 5% 15% 15%;
 }
+
