@@ -196,7 +196,7 @@ a.custom-card:hover {
   border-style: solid;
   border-color: magenta;
   border-radius: 10%;
-  background:rgb(238, 234, 234);
+  /* background:rgb(238, 234, 234); */
   font-size: 120%;
 
 }
@@ -247,5 +247,9 @@ a.custom-card:hover {
 }
 #btnlogin{
   margin: 0% 5% 15% 15%;
+}
+
+.currency{
+  color:green;
 }
 
