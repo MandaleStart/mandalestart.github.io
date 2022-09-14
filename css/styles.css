@@ -253,3 +253,45 @@ a.custom-card:hover {
   color:green;
 }
 
+#divcontrolbox{
+  background-color: gainsboro;
+  display: flex;
+  flex-direction: column;
+}
+
+#order{
+  display: block;
+  float: left;
+}
+#filter{
+  display:block;
+  float: right;
+}
+
+
+/*products info*/
+#prodimgdiv{
+  display: block;
+  float: left;
+
+}
+.checked {
+  color: orange;
+}
+.price1{
+  color:rgb(60, 216, 81);
+  font-weight: bolder;
+}
+.price{
+  color: black;
+  font-size: xx-large;
+  font-weight: bolder;
+}
+#footer{background-color: rgb(51, 51, 51);
+  color: rgb(255, 255, 255);
+}
+.prodname{
+  color: black;
+  font-size: xxx-large;
+  font-weight: bolder;
+}
