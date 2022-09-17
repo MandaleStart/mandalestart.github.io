@@ -68,6 +68,7 @@ fetch(URL_CAT)
             let contitem = document.getElementById('containerp');
             contitem.innerHTML = '';
             for (let product of listprice) {
+                //3.1
                 contitem.innerHTML += `
                 <div onclick="localStorage.setItem('itemID','${product.id}'); window.location='product-info.html';" name="divsetid" class="list-group-item list-group-item-action cursor-active">
                     <div class="list-group col-3">

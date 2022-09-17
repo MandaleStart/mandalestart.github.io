@@ -53,17 +53,19 @@ document.getElementById('closesession')?.addEventListener('click', () => { close
 document.getElementById('logsession')?.addEventListener('click', () => { loginS(); }); //redireccion manual al login 
 //fin control de sesion
 
-//carga de productos
+//3.2 carga de productos
 let productlist = document.getElementById("containerprod");
 let Commentsp = document.getElementById("commentsbox");
 let divcomments = document.getElementById("commentsmaker");
 let div = document.createElement('div');
 const URL_PROD = `https://japceibal.github.io/emercado-api/products/${ItemID}.json`;
+
+
 fetch(URL_PROD)
     .then(res => res.json())
     .then(datos => {
 
-    productlist.innerHTML += ` 
+        productlist.innerHTML += ` 
     <div class="m-5">
         <div class="container">
             <div class="row">
@@ -84,15 +86,20 @@ fetch(URL_PROD)
             </div>
         </div>
         </div>`
+        //carga imagenes
         for (let image of datos.images) {
             productlist.innerHTML += `
-        <div id="prodimgdiv" class="list-group col-3">
+        <div id="prodimgdiv" class="list-group col-3 mySlides fade">
         <img class="prodimgdiv" src="`+ image + `">
-
         </div>`};
+
+        productlist.innerHTML +=
+            `<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+            `
     });
 
-//comentarios
+//3.3 comentarios 
 const URL_COMMENTS = `https://japceibal.github.io/emercado-api/products_comments/${ItemID}.json`;
 fetch(URL_COMMENTS)
     .then(res => res.json())
@@ -108,32 +115,47 @@ fetch(URL_COMMENTS)
                 Commentsp.appendChild(div);
                 // estrellas
                 for (let i = 0; i < comentarios.score; i++) {
-                    let estrella = document.createElement('span');
-                    estrella.classList.add("fa");
-                    estrella.classList.add("fa-star");
-                    estrella.classList.add("checked");
-                    div.appendChild(estrella);
+                    let starson = document.createElement('span');
+                    starson.classList.add("fa");
+                    starson.classList.add("fa-star");
+                    starson.classList.add("checked");
+                    div.appendChild(starson);
                 }
                 if (comentarios.score < 5) {
                     let repetir = 5 - comentarios.score;
                     for (i = 0; i < repetir; i++) {
-                        let estrella1 = document.createElement('span');
-                        estrella1.classList.add("fa");
-                        estrella1.classList.add("fa-star");
-                        div.appendChild(estrella1);
+                        let starsoff = document.createElement('span');
+                        starsoff.classList.add("fa");
+                        starsoff.classList.add("fa-star");
+                        div.appendChild(starsoff);
                     }
                 }
                 div.innerHTML += `<br>${comentarios.description}<br></br>`
             };
         };
+        //slider para imagen
+
+        var slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1 }
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(showSlides, 2000);
+        }
 
         comentar();
-        // Completo el formulario para enviar un comentario
         divcomments.innerHTML = `
         <h4>Comentar</h4>
-        Tu opinion:<br>
+        <p>Tu opinion:</p><br>
         <textarea name="Comentario" id="Comentario" cols="50" rows="2"></textarea><br>
-        Tu puntuacion:
+        <p>Tu puntuacion:</p>
         <select name="stars" id="stars">
         <option>1 Estrella</option>
         <option>2 Estrellas</option>
@@ -145,32 +167,37 @@ fetch(URL_COMMENTS)
         `
         let Comentario = document.getElementById("Comentario");
         let stars = document.getElementById("stars");
-        // Creo la funcion para sumar el comentario pusheando datosComent
         let btnComments = document.getElementById("commentbtn");
+
+        //3.4 funcion para nuevo comentario
         function newcomment() {
-            let fecha = new Date()
-            let year = fecha.getFullYear()
-            let month = fecha.getMonth()
-            let day = fecha.getDate()
-            let hours = fecha.getHours()
-            let min = fecha.getMinutes()
-            let sec = fecha.getSeconds()
+            let dateTime = new Date()
+            let year = dateTime.getFullYear()
+            let month = dateTime.getMonth()
+            let day = dateTime.getDate()
+            let hours = dateTime.getHours()
+            let min = dateTime.getMinutes()
+            let sec = dateTime.getSeconds()
             let array = {
                 product: parseInt(catid),
                 score: parseInt(stars.value),
                 description: Comentario.value,
                 user: userlog,
-                dateTime: day + "/" + month + "/" + year  + " " + hours + ":" + min + ":" + sec
+                dateTime: day + "/" + month + "/" + year + " " + hours + ":" + min + ":" + sec
             }
             comments.push(array);
             Commentsp.removeChild(div);
             if (userlog != userdef) {
-            comentar();}
+                comentar();
+            }
             else {
                 alert('Necesita estar logeado para comentar');
                 location.reload()
             };
         };
-        btnComments.addEventListener("click",  newcomment);
+        btnComments.addEventListener("click", newcomment);
 
     });
+
+
+
