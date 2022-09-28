@@ -1,57 +1,52 @@
-
 let userlog = localStorage.getItem('user');
 let catid = localStorage.getItem("productID");
 let userdef = localStorage.setItem('userdef', null);
 let ItemID = localStorage.getItem('itemID');
+
+
 //                   muestra usuario logeado em nav-bar
 // se crea boton de iniciar sesion
-var logsession = document.createElement('button');
-logsession.id = "logsession"
-logsession.className = "btn btn-success"
-var textLoginButton = document.createTextNode('Iniciar Sesion');
-logsession.appendChild(textLoginButton);
-// crea una imagen en el nav-bar
-var userimg = document.createElement('img');
-userimg.src = 'img/img_perfil.png';
-userimg.id = 'imgperfil'
-//se crea nombre de usuario en nav-bar
-var username = document.createElement('p');
-username.className = 'username'
-var textUserLog = document.createTextNode(userlog);
-username.appendChild(textUserLog);
-// se crea boton de cerrar sesion
-var closesession = document.createElement('button');
-closesession.id = "closesession"
-closesession.className = "btn btn-danger"
-var textCloseButton = document.createTextNode('Cerrar Sesion');
-closesession.appendChild(textCloseButton);
+function nologed() {
+    document.getElementById('sessionli').innerHTML = `<button class="btn btn-success" id = "logsession">Iniciar Sesion</button>`
+};
+//                 Control de login en index (adaptado a 4.2)
+function usermenu() {
 
-//                 Control de login en index
-function closeS() { //cierra la sesion y redirecciona a login
-    localStorage.removeItem('user');
+    document.getElementById('sessionli').innerHTML =
+        `<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+  ${userlog}
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    <li><a class="dropdown-item" href="my-profile.html">Perfil</a></li>
+    <li><a class="dropdown-item" href="cart.html">Carrito</a></li>
+    <li><a class="dropdown-item" onclick="closeS();">Cerrar Sesion</a></li>
+  </ul>
+</div>`
+};
+//cierra la sesion y redirecciona a login
+function closeS() {
     alert('salio de la sesion');
+    localStorage.removeItem('user');
     location.href = 'login.html';
 };
 function loginS() {
     location.href = 'login.html';
 };
+// cheqeo de login
 function chkS() {
-
     if (userlog != userdef) {
         console.log(`hkS:connected user ${userlog}`)
-        document.getElementById('sessiondiv').appendChild(userimg);
-        document.getElementById('sessiondiv').appendChild(username);
-        document.getElementById('sessiondiv').appendChild(closesession);
+        usermenu();
     }
     else {
         console.log('hkS:unlogged user')
-        document.getElementById('sessiondiv').appendChild(logsession);
+        nologed();
     }
 };
 chkS();
 document.getElementById('closesession')?.addEventListener('click', () => { closeS(); }); // cierre de sesion manual
 document.getElementById('logsession')?.addEventListener('click', () => { loginS(); }); //redireccion manual al login 
-//fin control de sesion
 
 //3.2 carga de productos
 let productlist = document.getElementById("containerprod");
@@ -60,45 +55,47 @@ let divcomments = document.getElementById("commentsmaker");
 let div = document.createElement('div');
 const URL_PROD = `https://japceibal.github.io/emercado-api/products/${ItemID}.json`;
 
-
 fetch(URL_PROD)
     .then(res => res.json())
     .then(datos => {
 
         productlist.innerHTML += ` 
-    <div class="m-5">
         <div class="container">
             <div class="row">
                 <div class="col order-1">
                     <h2 class="prodname">${datos.name}</h2>
-                    <p>Categoria: ${datos.category}</p>
+                    <p id="cat">Categoria: ${datos.category}</p>
                 </div>
-                <div class="col order-2 ">
+                <div class="col order-2 " id="price">
                     <p class="price">Precio
                     <spam class="price1">${datos.currency} ${datos.cost}</spam>
                     </p>
                     <p>Total ventas: ${datos.soldCount}</p><br> 
                 </div>
             </div>
-            <hr>
-            <div> 
-                    <p>Descripcion: ${datos.description}</p>
-            </div>
-        </div>
+        <hr>
+        <p>Descripcion: ${datos.description}</p>
         </div>`
         //carga imagenes
         for (let image of datos.images) {
             productlist.innerHTML += `
-        <div id="prodimgdiv" class="list-group col-3 mySlides fade">
-        <img class="prodimgdiv" src="`+ image + `">
-        </div>`};
-
-        productlist.innerHTML +=
-            `<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-            <a class="next" onclick="plusSlides(1)">&#10095;</a>
-            `
+        <div id="prodimgdiv" class="list-group col-3">
+        <img class="prodimg" src=" ${image}">`
+        };
+        //4.1 productos relacionado
+        let rProducts = document.getElementById('relatedProducts');
+        for (relatedProduct of datos.relatedProducts) {
+            rProducts.innerHTML += `
+                <div class="list-group col-3 card list-group-item-action cursor-active" onclick="localStorage.setItem('itemID',${relatedProduct.id}); window.location='product-info.html';">
+                <div class="card-body">
+                <p>${relatedProduct.name}</p>
+                <div  class="card-img-top">
+                <img src="${relatedProduct.image}">
+                <div/>
+                </div>
+                `
+        };
     });
-
 //3.3 comentarios 
 const URL_COMMENTS = `https://japceibal.github.io/emercado-api/products_comments/${ItemID}.json`;
 fetch(URL_COMMENTS)
@@ -115,41 +112,24 @@ fetch(URL_COMMENTS)
                 Commentsp.appendChild(div);
                 // estrellas
                 for (let i = 0; i < comentarios.score; i++) {
-                    let starson = document.createElement('span');
-                    starson.classList.add("fa");
-                    starson.classList.add("fa-star");
-                    starson.classList.add("checked");
-                    div.appendChild(starson);
+                    let starsON = document.createElement('span');
+                    starsON.classList.add("fa");
+                    starsON.classList.add("fa-star");
+                    starsON.classList.add("checked");
+                    div.appendChild(starsON);
                 }
                 if (comentarios.score < 5) {
                     let repetir = 5 - comentarios.score;
                     for (i = 0; i < repetir; i++) {
-                        let starsoff = document.createElement('span');
-                        starsoff.classList.add("fa");
-                        starsoff.classList.add("fa-star");
-                        div.appendChild(starsoff);
+                        let starsOFF = document.createElement('span');
+                        starsOFF.classList.add("fa");
+                        starsOFF.classList.add("fa-star");
+                        div.appendChild(starsOFF);
                     }
                 }
                 div.innerHTML += `<br>${comentarios.description}<br></br>`
             };
         };
-        //slider para imagen
-
-        var slideIndex = 0;
-        showSlides();
-
-        function showSlides() {
-            var i;
-            var slides = document.getElementsByClassName("mySlides");
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
-            slideIndex++;
-            if (slideIndex > slides.length) { slideIndex = 1 }
-            slides[slideIndex - 1].style.display = "block";
-            setTimeout(showSlides, 2000);
-        }
-
         comentar();
         divcomments.innerHTML = `
         <h4>Comentar</h4>
@@ -196,7 +176,6 @@ fetch(URL_COMMENTS)
             };
         };
         btnComments.addEventListener("click", newcomment);
-
     });
 
 
