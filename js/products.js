@@ -15,7 +15,7 @@ let list2 = [];
 function nologed() {
     document.getElementById('sessionli').innerHTML = `<button class="btn btn-success" id = "logsession">Iniciar Sesion</button>`
 };
-//                 Control de login en index (adaptado a 4.2)
+//                 Control de login (adaptado a 4.2)
 function usermenu() {
 
     document.getElementById('sessionli').innerHTML =
@@ -66,28 +66,31 @@ fetch(URL_CAT)
             for (let product of listprice) {
                 //3.1
                 contitem.innerHTML += `
-                <div onclick="localStorage.setItem('itemID','${product.id}'); window.location='product-info.html';" name="divsetid" class="list-group-item list-group-item-action cursor-active">
-                    <div class="list-group col-3">
-                        <img class="img-thumbnail" src="`+ product.image + `">
+                <div class="row"  onclick="localStorage.setItem('itemID','${product.id}'); window.location='product-info.html';">
+                    <div id="nombre" class="row order-1">
+                        <p>${product.name}</p>
                     </div>
-                    <div class="col">
-                    <div id ="nombre">
+                <div name="divsetid" class="row ">
+                <div class="list-group col order-1">
+                    <img class="img-thumbnail" src="`+ product.image + `">
+                </div>
+                <div class="col order-2">
+                    <div id="nombre">
                         <p>${product.name}</p>
                     </div>
                     <div id="descprod">
                         <p>${product.description}</p>
                     </div>
-
+            
                     <div >
-                    <p>Cod:</p>
-                    <p id="prodid">${product.id}</p></div>
-                     </div>
-                    <div class="col mb-1">
-                    <div id ="cost"><p>${product.currency}:<spam class="currency">${product.cost}</spam></p></div>
-                    <div id="soldcount"><p>${product.soldCount}</p></div>
-
+                        <p id="prodid">Cod:${product.id}</p></div>
+            
+                    <div class="col">
+                        <div id="cost"><p>${product.currency}:<spam class="currency">${product.cost}</spam></p></div>
+                        <div id="soldcount"><p>${product.soldCount}</p></div>
                     </div>
-                </div>`;
+                </div>
+            </div>`;
             };
         };
         

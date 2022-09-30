@@ -50,6 +50,7 @@ document.getElementById('logsession')?.addEventListener('click', () => { loginS(
 
 //3.2 carga de productos
 let productlist = document.getElementById("containerprod");
+let productimg = document.getElementById("containerimg");
 let Commentsp = document.getElementById("commentsbox");
 let divcomments = document.getElementById("commentsmaker");
 let div = document.createElement('div');
@@ -60,37 +61,70 @@ fetch(URL_PROD)
     .then(datos => {
 
         productlist.innerHTML += ` 
-        <div class="container">
-            <div class="row">
+            <div class="row" >
                 <div class="col order-1">
                     <h2 class="prodname">${datos.name}</h2>
-                    <p id="cat">Categoria: ${datos.category}</p>
+                    <p id="description">${datos.description}</p>
                 </div>
                 <div class="col order-2 " id="price">
+                    <div class="row">
+                    <p id="cat" class="col order-1">Categoria: ${datos.category}</p><p class="col order-2">Total ventas: ${datos.soldCount}</p>
+                    </div>
                     <p class="price">Precio
                     <spam class="price1">${datos.currency} ${datos.cost}</spam>
                     </p>
-                    <p>Total ventas: ${datos.soldCount}</p><br> 
+                    <br> 
                 </div>
             </div>
         <hr>
-        <p>Descripcion: ${datos.description}</p>
+        
         </div>`
-        //carga imagenes
-        for (let image of datos.images) {
-            productlist.innerHTML += `
-        <div id="prodimgdiv" class="list-group col-3">
-        <img class="prodimg" src=" ${image}">`
-        };
-        //4.1 productos relacionado
+//carga imagenes
+        productimg.innerHTML += `
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="${datos.images[0]}" class="d-block w-100">
+          </div>
+          <div class="carousel-item">
+            <img src="${datos.images[1]}" class="d-block w-100">
+          </div>
+          <div class="carousel-item">
+            <img src="${datos.images[2]}" class="d-block w-100">
+          </div>
+          <div class="carousel-item">
+            <img src="${datos.images[3]}" class="d-block w-100">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+</div>`
+
+//4.1 productos relacionado
         let rProducts = document.getElementById('relatedProducts');
         for (relatedProduct of datos.relatedProducts) {
             rProducts.innerHTML += `
-                <div class="list-group col-3 card list-group-item-action cursor-active" onclick="localStorage.setItem('itemID',${relatedProduct.id}); window.location='product-info.html';">
+                <div class="rprodcards col order-3 card" onclick="localStorage.setItem('itemID',${relatedProduct.id}); window.location='product-info.html';">
                 <div class="card-body">
                 <p>${relatedProduct.name}</p>
                 <div  class="card-img-top">
                 <img src="${relatedProduct.image}">
+                <p class="price">
+                <spam class="price1">${datos.currency} ${datos.cost}</spam> 
                 <div/>
                 </div>
                 `

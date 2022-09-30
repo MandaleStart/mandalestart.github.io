@@ -302,3 +302,32 @@ a.custom-card:hover {
 }
 
 /*usermenu-navbar*/
+.dropdown-menu{
+  background-color:#212529;
+  color: #fff;
+  }
+  .dropdown-item {
+    background-color:#212529;
+    color: #fff;
+    }
+#description{
+  padding-left: 15%;
+}
+/*carousel*/
+.carousel-control-next{
+  background-color: black;
+  }
+.carousel-control-prev{
+  background-color: black;
+  margin-left: 5%;
+}
+.carousel-inner{
+  padding-left: 5%;
+}
+#relatedProducts{
+  align-items: center;
+}
+#rprodh2
+{
+  text-align: center;
+}
