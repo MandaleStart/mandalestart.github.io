@@ -1,7 +1,4 @@
-let userlog = localStorage.getItem('user');
-
 let catID = localStorage.getItem('catID');
-let userdef = localStorage.setItem('userdef', null);
 let inputMin = document.getElementById("rangeFilterCountMin");
 let inputMax = document.getElementById("rangeFilterCountMax");
 let sortAsc = document.getElementById("sortAsc");
@@ -10,49 +7,6 @@ let ventaDesc = document.getElementById("sortByCount");
 let inputsearch = document.getElementById("search");
 let listprice = [];
 let list2 = [];
-//                  muestra usuario logeado em nav-bar
-// se crea boton de iniciar sesion
-function nologed() {
-    document.getElementById('sessionli').innerHTML = `<button class="btn btn-success" id = "logsession">Iniciar Sesion</button>`
-};
-//                 Control de login (adaptado a 4.2)
-function usermenu() {
-
-    document.getElementById('sessionli').innerHTML =
-        `<div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-  ${userlog}
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-    <li><a class="dropdown-item" href="my-profile.html">Perfil</a></li>
-    <li><a class="dropdown-item" href="cart.html">Carrito</a></li>
-    <li><a class="dropdown-item" onclick="closeS();">Cerrar Sesion</a></li>
-  </ul>
-</div>`
-};
-//cierra la sesion y redirecciona a login
-function closeS() {
-    alert('salio de la sesion');
-    localStorage.removeItem('user');
-    location.href = 'login.html';
-};
-function loginS() {
-    location.href = 'login.html';
-};
-// cheqeo de login
-function chkS() {
-    if (userlog != userdef) {
-        console.log(`hkS:connected user ${userlog}`)
-        usermenu();
-    }
-    else {
-        console.log('hkS:unlogged user')
-        nologed();
-    }
-};
-chkS();
-document.getElementById('closesession')?.addEventListener('click', () => { closeS(); }); // cierre de sesion manual
-document.getElementById('logsession')?.addEventListener('click', () => { loginS(); }); //redireccion manual al login 
 
 const URL_CAT = `https://japceibal.github.io/emercado-api/cats_products/${catID}.json`;
 fetch(URL_CAT)
@@ -68,15 +22,14 @@ fetch(URL_CAT)
                 contitem.innerHTML += `
                 <div class="row"  onclick="localStorage.setItem('itemID','${product.id}'); window.location='product-info.html';">
                     <div id="nombre" class="row order-1">
-                        <p>${product.name}</p>
                     </div>
                 <div name="divsetid" class="row ">
-                <div class="list-group col order-1">
-                    <img class="img-thumbnail" src="`+ product.image + `">
-                </div>
+                    <div class="list-group col order-1">
+                        <img class="img-thumbnail" src="`+ product.image + `">
+                    </div>
                 <div class="col order-2">
                     <div id="nombre">
-                        <p>${product.name}</p>
+                        <h3>${product.name}</h3>
                     </div>
                     <div id="descprod">
                         <p>${product.description}</p>
@@ -90,7 +43,8 @@ fetch(URL_CAT)
                         <div id="soldcount"><p>${product.soldCount}</p></div>
                     </div>
                 </div>
-            </div>`;
+            </div>
+            <>`;
             };
         };
         
