@@ -8,6 +8,7 @@ function login() {
     //validacion y redireccion 
     if (user != "" && pass != "") {
         localStorage.setItem('user', user);
+        localStorage.setItem('databasic_mail',`${user}`)
         location.href = 'index.html';
     }
     //error

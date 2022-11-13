@@ -85,3 +85,7 @@ function chkS() {
 chkS();
 document.getElementById('closesession')?.addEventListener('click', () => { closeS(); }); // cierre de sesion manual
 document.getElementById('logsession')?.addEventListener('click', () => { loginS(); }); //redireccion manual al login 
+
+function clog(data){
+  console.log(data)
+}

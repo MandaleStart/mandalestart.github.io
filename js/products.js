@@ -7,18 +7,19 @@ let ventaDesc = document.getElementById("sortByCount");
 let inputsearch = document.getElementById("search");
 let listprice = [];
 let list2 = [];
-
+//llamada a api
 const URL_CAT = `https://japceibal.github.io/emercado-api/cats_products/${catID}.json`;
 fetch(URL_CAT)
     .then(res => res.json())
     .then(datos => {
         listprice = datos.products;
         document.getElementById('catTitle').innerHTML += `<h2>${datos.catName}</h2>`
+        //mostrar producto
         function loaditems() {
             let contitem = document.getElementById('containerp');
             contitem.innerHTML = '';
             for (let product of listprice) {
-                //3.1
+
                 contitem.innerHTML += `
                 <div class="row"  onclick="localStorage.setItem('itemID','${product.id}'); window.location='product-info.html';">
                     <div id="nombre" class="row order-1">
@@ -47,7 +48,7 @@ fetch(URL_CAT)
             <>`;
             };
         };
-        
+        //funcion  para realizar busqueda
         function Search(e) {
             if (document.getElementById("search").value) {
                 list2 = listprice.filter(item => {
@@ -114,6 +115,3 @@ fetch(URL_CAT)
         document.getElementById("clearRangeFilter").addEventListener('click', () => { clearfilter; }); // Borra el filtrado
         document.getElementById("rangeFilterCount").addEventListener('click', () => { filtrado }); // filtra segun valor min y max 
     });
-
-
-    //

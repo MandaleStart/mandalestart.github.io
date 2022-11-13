@@ -1,8 +1,5 @@
 let catid = localStorage.getItem('productID')
 let ItemID = localStorage.getItem('itemID')
-
-// 3.2 carga de productos
-// con 5.desafiate pre agregado
 let productlist = document.getElementById('containerprod')
 let productimg = document.getElementById('containerimg')
 let Commentsp = document.getElementById('commentsbox')
@@ -32,7 +29,7 @@ fetch(URL_PROD)
         <hr>
         
         </div>`
-
+// plantilla json
     let arttocart = {
       "user": 25801,
       "articles": []
@@ -45,6 +42,7 @@ fetch(URL_PROD)
       "currency": datos.currency,
       "image": datos.images[0]
     }
+
     function addprodtocartfn() {
       let prodls = localStorage.getItem('productadd')
       if (prodls === null) {
@@ -59,7 +57,7 @@ fetch(URL_PROD)
         console.log(arttocart)
       }
     }
-
+// funcion que muestra alerta de agregado al carrito y dispara funcion de cargar producto en el local.storage
     function addcartbtn() {
       addprodtocartfn()
       let showalert = document.getElementById('showalert')
@@ -105,7 +103,7 @@ fetch(URL_PROD)
     </div>
 </div>`
 
-    // 4.1 productos relacionado
+    //productos relacionado
     let rProducts = document.getElementById('relatedProducts')
     for (let relatedProduct of datos.relatedProducts) {
       rProducts.innerHTML += `
@@ -122,7 +120,7 @@ fetch(URL_PROD)
                 `
     }
   })
-// 3.3 comentarios
+//comentarios
 const URL_COMMENTS = `https://japceibal.github.io/emercado-api/products_comments/${ItemID}.json`
 fetch(URL_COMMENTS)
   .then(res => res.json())
@@ -172,7 +170,7 @@ fetch(URL_COMMENTS)
     let stars = document.getElementById('stars')
     let btnComments = document.getElementById('commentbtn')
 
-    // 3.4 funcion para nuevo comentario
+    //funcion para nuevo comentario
     function newcomment() {
       let dateTime = new Date()
       let year = dateTime.getFullYear()
